@@ -1,0 +1,20 @@
+﻿@model HomeHelper.CQRS.Rooms.Commands.CreateRoom.CreateRoomCommand
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row no-gutters justify-content-center">
+    <div class="col-auto">
+        <div class="card-body bg-light shadow hh-rounded bg-white">
+            <div class="h3 text-center mb-5">Add a new room</div>
+            <form class="form-inline justify-content-center" asp-action="Add" asp-controller="Room" asp-area="Admin"
+                  autocomplete="off" method="post" role="form">
+                <label class="mr-2" asp-for="@Model.Name"></label>
+                <input type="text" class="form-control mr-3 mb-3 mt-3" asp-for="@Model.Name">
+                <button type="submit" class="btn hh-bgc-secondary hh-rounded hh-color-primary mr-3">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+

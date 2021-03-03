@@ -1,0 +1,88 @@
+﻿@model HomeHelper.CQRS.Devices.Commands.CreateDevice.CreateDeviceCommand
+@using HomeHelper.Common.Enums
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/js/device.models.js" defer></script>
+
+<div class="row no-gutters justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6">
+        <div class="card-body bg-light shadow hh-rounded bg-white">
+            <div class="h3 text-center mb-5">Add new device</div>
+            <form autocomplete="off" method="post" role="form" id="create-device">
+
+                <div class="row no-gutters justify-content-around mb-2">
+                    <label asp-for="@Model.Protocol"></label>
+                    <select asp-for="@Model.Protocol" id="protocol-types" asp-items="@Html.GetEnumSelectList<ProtocolType>()"
+                            class="form-control mb-3" style="width: 100%">
+                    </select>
+                </div>
+
+                <div class="row no-gutters justify-content-around mb-2">
+                    <label asp-for="@Model.Type"></label>
+                    <select asp-for="@Model.Type" id="device-types" asp-items="@Html.GetEnumSelectList<DeviceType>()"
+                            class="form-control mb-3" style="width: 100%">
+                    </select>
+                </div>
+
+                <div class="row no-gutters justify-content-around mb-2">
+                    <label asp-for="@Model.ModelName"></label>
+                    <select asp-for="@Model.ModelName" id="device-models" class="form-control mb-3" style="width: 100%">
+                    </select>
+                </div>
+
+                <div class="form-row mt-4">
+                    <div class="col">
+                        <label asp-for="@Model.Name"></label>
+                        <input asp-for="@Model.Name" type="text" class="form-control mb-3 hh-rounded" placeholder="e.g TempSensor">
+                    </div>
+                    <div class="col">
+                        <label>Room:</label>
+                        <select asp-for="@Model.RoomId" id="sensor-rooms" class="form-control mb-3" style="width: 100%">
+                            @foreach (var room in Model.Rooms)
+                            {
+                                <option value="@room.Id">@room.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <section id="http-options">
+                    <div class="form-row">
+                        <div class="col">
+                            <label asp-for="@Model.IpAddress"></label>
+                            <input asp-for="@Model.IpAddress" type="text" class="form-control mb-3 hh-rounded" placeholder="e.g 192.168.1.0">
+                        </div>
+                        <div class="col">
+                            <label asp-for="@Model.PortNumber"></label>
+                            <input asp-for="@Model.PortNumber" type="text" class="form-control mb-3 hh-rounded" placeholder="e.g 1883">
+                        </div>
+                    </div>
+                </section>
+
+                <section id="mqtt-options">
+                    <div class="row no-gutters justify-content-around mb-2">
+                        <label asp-for="@Model.ConnectedDeviceId"></label>
+                        <select id="mqtt-devices" asp-for="@Model.ConnectedDeviceId" class="form-control mb-3" style="width: 100%">
+                        </select>
+                    </div>
+                </section>
+
+                <section id="zigbee-options">
+                    <a class="btn btn-sm btn-block hh-bgc-secondary hh-rounded hh-color-primary my-3 mx-auto" id="pair-button">
+                        <span class="enable-text">Enable pairing</span>
+                        <img class="loading-animation" src="~/img/ajax-loader.gif" />
+                    </a>
+                    <label asp-for="@Model.ConnectedDeviceId"></label>
+                    <select id="zigbee-devices" asp-for="@Model.ConnectedDeviceId" class="form-control mb-3 hidden" style="width: 100%">
+                    </select>
+                </section>
+
+                <button class="btn btn-lg btn-block hh-bgc-secondary hh-rounded hh-color-primary mt-5" type="submit">Add</button>
+
+            </form>
+        </div>
+    </div>
+</div>

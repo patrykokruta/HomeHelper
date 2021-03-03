@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HomeHelper.DTO.Devices.Switch>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/js/switches.js" defer></script>
+<div class="row no-gutters justify-content-around">
+
+    @foreach (var sw in Model)
+    {
+        <div class="col-11 col-sm-9 col-md-5 col-lg-4 pb-5 pl-2 pr-2">
+            <div class="card-body bg-light shadow hh-rounded">
+                <div class="switch-container">
+                    <div id="@sw.Id">
+                        <div class="device-name mb-2 hh-fw-l">Name: @sw.Name</div>
+                        <div class="room-name mb-4 hh-fw-l">Room: @sw.RoomName</div>
+                        @if (sw.Protocol == HomeHelper.Common.Enums.ProtocolType.Http)
+                        {
+                            <div class="switch-state mb-4 text-center" onclick="httpToggle('@sw.Id')">
+                                <ion-icon name="power-outline" class="switch-icon hidden"></ion-icon><img src="~/img/value-loader.gif" class="switch-animation" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="switch-state mb-4 text-center" onclick="mqttToggle('@sw.Id')">
+                                <ion-icon name="power-outline" class="switch-icon hidden"></ion-icon><img src="~/img/value-loader.gif" class="switch-animation" />
+                            </div>
+                        }
+                    <div class="link-quality text-right">
+                        <span class="signal-strength"></span>
+                        <ion-icon name="cellular-outline" class="signal-icon hidden"></ion-icon><img src="~/img/value-loader.gif" class="signal-animation" />
+
+                    </div>
+                        <div class="protocol-type" hidden>@sw.Protocol</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+		<PackageReference Include="MQTTnet" Version="3.0.13" />
+		<PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.13" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\HomeHelper.Common\HomeHelper.Common.csproj" />
+		<ProjectReference Include="..\HomeHelper.CQRS\HomeHelper.CQRS.csproj" />
+		<ProjectReference Include="..\HomeHelper.Repositories\HomeHelper.Repositories.csproj" />
+		<ProjectReference Include="..\HomeHelper.SDK\HomeHelper.SDK.csproj" />
+		<ProjectReference Include="..\HomeHelper.Services\HomeHelper.Services.csproj" />
+	</ItemGroup>
+
+</Project>

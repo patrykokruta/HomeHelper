@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Devices\Commands\DeleteDevice\" />
+    <Folder Include="Devices\Commands\UpdateDevice\" />
+    <Folder Include="Rooms\Queries\GetRoomById\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeHelper.Common\HomeHelper.Common.csproj" />
+    <ProjectReference Include="..\HomeHelper.DTO\HomeHelper.DTO.csproj" />
+    <ProjectReference Include="..\HomeHelper.Repositories\HomeHelper.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

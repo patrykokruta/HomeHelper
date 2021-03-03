@@ -1,0 +1,47 @@
+﻿@model HomeHelper.DTO.Account.RegisterRequest
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Areas/Identity/Views/Shared/_Layout.cshtml";
+}
+
+
+<form id="registerForm" class="form-login shadow hh-rounded bg-white" autocomplete="off"
+      asp-area="Identity" asp-controller="Account" asp-action="Register" method="post" role="form">
+
+    <a asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/img/intelligent-assistant.svg" alt="assistant" height="150" class="mb-2" /></a>
+
+    <h2 class="h3 mb-4 font-weight-normal">Register</h2>
+    <div id="error-info-message" class="mb-3">@ViewData["message"]</div>
+    <div id="error-info" asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+    <span id="error-info" asp-validation-for="DbPassword" class="text-danger"></span>
+    <label asp-for="DbPassword" class="sr-only"></label>
+    <input type="password" asp-for="DbPassword" class="form-control mb-3 hh-rounded" placeholder="Database password" required="">
+
+    <span id="error-info" asp-validation-for="Email" class="text-danger"></span>
+    <label asp-for="Email" class="sr-only"></label>
+    <input type="email" asp-for="Email" class="form-control mb-3 hh-rounded" placeholder="Email" required="" autofocus="">
+
+    <span id="error-info" asp-validation-for="UserName" class="text-danger"></span>
+    <label asp-for="UserName" class="sr-only"></label>
+    <input type="text" asp-for="UserName" class="form-control mb-3 hh-rounded" placeholder="Username" required="" autofocus="" />
+
+    <span id="error-info" asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="Name" class="sr-only"></label>
+    <input type="text" asp-for="Name" class="form-control mb-3 hh-rounded" placeholder="Your name" required="" autofocus="" />
+
+    <span id="error-info" asp-validation-for="Password" class="text-danger"></span>
+    <label asp-for="Password" class="sr-only"></label>
+    <input type="password" asp-for="Password" class="form-control mb-3 hh-rounded" placeholder="Password" required="">
+
+    <span id="error-info" asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    <label asp-for="Password" class="sr-only"></label>
+    <input type="password" asp-for="ConfirmPassword" class="form-control hh-rounded" placeholder="Confirm password" required="">
+
+    <button class="btn btn-lg btn-block hh-bgc-secondary hh-rounded hh-color-primary mt-5" type="submit">Sign up</button>
+
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

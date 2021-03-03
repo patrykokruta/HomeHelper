@@ -1,0 +1,32 @@
+﻿@model IEnumerable<HomeHelper.DTO.Devices.MotionSensor>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row no-gutters justify-content-around">
+
+    @foreach (var motionSensor in Model)
+    {
+        <div class="col-11 col-sm-9 col-md-5 col-lg-4 pb-5">
+            <div class="card-body bg-light shadow hh-rounded">
+                <div class="motion-container">
+                    <div id="@motionSensor.Id">
+                        <div class="device-name mb-2 hh-fw-l">Name: @motionSensor.Name</div>
+                        <div class="room-name mb-4 hh-fw-l">Room: @motionSensor.RoomName</div>
+                        <div class="motion-value mb-4 text-center"><img src="~/img/value-loader.gif" class="motion-animation" /></div>
+                        <div class="battery text-right"><span class="battery-value"></span><img src="~/img/value-loader.gif" class="battery-animation" /><ion-icon name="battery-half-sharp" class="battery-icon hidden ml-1"></ion-icon></div>
+                        <div class="link-quality text-right">
+                            <span class="signal-strength"></span>
+                            <ion-icon name="cellular-outline" class="signal-icon hidden"></ion-icon><img src="~/img/value-loader.gif" class="signal-animation" />
+
+                        </div>
+                        <div class="protocol-type" hidden>@motionSensor.Protocol</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/js/motion.sensors.js" defer></script>

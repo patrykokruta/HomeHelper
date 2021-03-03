@@ -1,0 +1,31 @@
+﻿@model HomeHelper.DTO.Authentication.AuthenticationRequest
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Areas/Identity/Views/Shared/_Layout.cshtml";
+}
+
+    <form id="loginForm" class="form-login shadow hh-rounded bg-white"
+          asp-area="Identity" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" role="form">
+
+        <a asp-area="Customer" asp-controller="Home" asp-action="Index"><img src="~/img/intelligent-assistant.svg" alt="assistant" height="150" class="mb-2" /></a>
+
+        <h2 class="h3 mb-4 font-weight-normal">Login</h2>
+
+        <div id="error-info-message" class="mb-3">@ViewData["message"]</div>
+        <div id="error-info" asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+        <span id="error-info" asp-validation-for="Email" class="text-danger"></span>
+        <label asp-for="Email" class="sr-only">Email address</label>
+        <input type="email" asp-for="Email" class="form-control mb-3 hh-rounded" placeholder="Email address" required="" autofocus="">
+
+        <span id="error-info" asp-validation-for="Password" class="text-danger"></span>
+        <label asp-for="Password" class="sr-only">Password</label>
+        <input type="password" asp-for="Password" class="form-control mb-4 hh-rounded" placeholder="Password" required="">
+
+        <button class="btn btn-lg btn-block hh-bgc-secondary hh-rounded hh-color-primary" type="submit">Sign in</button>
+    </form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

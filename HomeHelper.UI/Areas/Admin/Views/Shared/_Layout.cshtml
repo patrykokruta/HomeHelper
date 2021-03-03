@@ -1,0 +1,185 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using HomeHelper.Domain
+@inject UserManager<ApplicationUser> UserManager
+@{var user = await UserManager.GetUserAsync(User);}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"></style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" defer></script>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="~/lib/jquery/jquery.min.js" defer></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" defer></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
+    <script src="~/js/custom.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="~/lib/data-tables/datatables.min.css" />
+    <script type="text/javascript" src="~/lib/data-tables/datatables.min.js" defer></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" defer></script>
+
+
+</head>
+
+<body>
+
+    <div id="dashboard" class="align-items-stretch hh-bgc-primary">
+
+        <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
+            <a id="sidebarCollapse" class="btn hh-rounded hh-color-primary hh-bgc-secondary">
+                <i class="fas fa-align-left"></i>
+            </a>
+
+            <div class="ml-auto">
+                Hello @user.Name
+            </div>
+
+            <div class="ml-2">
+                <form id="logOut" class="m-0" role="form" method="post" asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                    <button class="ml-auto btn hh-rounded hh-color-primary hh-bgc-secondary" type="submit">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+
+                </form>
+            </div>
+        </nav>
+
+        <div class="d-flex mt-5 pt-5">
+            <nav id="sidebar" class="p-3 hh-rounded hh-bgc-secondary shadow ml-3">
+                <ul class="list-unstyled m-0">
+                    <li>
+                        <a href="#sensorsSubmenu" class="hh-color-primary hh-fz-secondary hh-fw-m" data-toggle="collapse">
+                            <ion-icon name="radio-outline"></ion-icon>
+                            Sensors&nbsp;
+                            <ion-icon name="chevron-down-outline" size="small"></ion-icon>
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 pt-1" id="sensorsSubmenu">
+                            <li>
+                                <a asp-action="Index" asp-controller="TemperatureSensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="thermometer-outline"></ion-icon> Temperature</a>
+                            </li>
+                            <li>
+                                <a asp-action="Index" asp-controller="HumiditySensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="water-outline"></ion-icon> Humidity</a>
+                            </li>
+                            <li>
+                                <a asp-action="Index" asp-controller="MotionSensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="footsteps-outline"></ion-icon> Motion</a>
+                            </li>
+                            <li>
+                                <a asp-action="Index" asp-controller="ContactSensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="lock-open-outline"></ion-icon> Door/Window</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#controlsSubmenu" class="hh-color-primary hh-fz-secondary hh-fw-m" data-toggle="collapse">
+                            <ion-icon name="game-controller-outline"></ion-icon>
+                            Controls&nbsp;
+                            <ion-icon name="chevron-down-outline" size="small"></ion-icon>
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 pt-1" id="controlsSubmenu">
+                            <li>
+                                <a asp-action="Index" asp-controller="Switch" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="toggle-outline"></ion-icon> Switch</a>
+                            </li>
+                            @*<li>
+                                <a asp-action="Index" asp-controller="Dimmer" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="aperture-outline"></ion-icon> Dimmer</a>
+                            </li>*@
+                        </ul>
+                    </li>
+
+                    <hr>
+                    <li>
+                        <a href="#chartsSubmenu" class="hh-color-primary hh-fz-secondary hh-fw-m" data-toggle="collapse">
+                            <ion-icon name="bar-chart-outline" size="small"></ion-icon>
+                            Charts&nbsp;
+                            <ion-icon name="chevron-down-outline" size="small"></ion-icon>
+
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 pt-1" id="chartsSubmenu">
+                            <li>
+                                <a asp-action="Charts" asp-controller="TemperatureSensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="thermometer-outline"></ion-icon> Temperature</a>
+                            </li>
+                            <li>
+                                <a asp-action="Charts" asp-controller="HumiditySensor" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="water-outline"></ion-icon> Humidity</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#devicesSubmenu" class="hh-color-primary hh-fz-secondary hh-fw-m" data-toggle="collapse">
+                            <ion-icon name="hardware-chip-outline"></ion-icon>
+                            <span>Devices</span>
+                            <ion-icon name="chevron-down-outline" size="small"></ion-icon>
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 pt-1" id="devicesSubmenu">
+                            <li>
+                                <a href="#" class="hh-color-primary hh-fz-secondary"><ion-icon name="document-text-outline"></ion-icon> List</a>
+                            </li>
+                            <li>
+                                <a asp-action="Add" asp-controller="Device" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="add-outline"></ion-icon> New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>
+                        <a href="#roomsSubmenu" class="hh-color-primary hh-fz-secondary hh-fw-m" data-toggle="collapse">
+                            <ion-icon name="home-outline"></ion-icon>
+
+                            <span>Rooms</span>
+
+                            <ion-icon name="chevron-down-outline" size="small"></ion-icon>
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 pt-1" id="roomsSubmenu">
+                            <li>
+                                <a asp-action="Index" asp-controller="Room" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="document-text-outline"></ion-icon> List</a>
+                            </li>
+                            @*<li>
+                                    <a href="#" class="hh-color-primary hh-fz-secondary"><ion-icon name="grid-outline"></ion-icon> Plan</a>
+                                </li>*@
+                            <li>
+                                <a asp-action="Add" asp-controller="Room" asp-area="Admin" class="hh-color-primary hh-fz-secondary"><ion-icon name="add-outline"></ion-icon> New</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @*<hr>
+                        <li>
+                            <a href="#" class="hh-color-primary hh-fz-secondary hh-fw-m">
+                                <ion-icon name="terminal-outline"></ion-icon>
+                                Automation
+                            </a>
+                        </li>
+                        <hr>
+                        <li>
+                            <a href="#" class="hh-color-primary hh-fz-secondary hh-fw-m">
+                                <ion-icon name="construct-outline"></ion-icon>
+                                Settings
+                            </a>
+                        </li>*@
+
+                </ul>
+            </nav>
+            <div id="content" class="px-1 pb-5">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>
